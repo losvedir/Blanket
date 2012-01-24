@@ -1,0 +1,31 @@
+This project is a toy HTML parser for a subset of well-formed HTML. It supports
+the tags html, head, body, div, and a. Other tags are stored in the generic
+"OtherT" type. Each tag supports the attributes id, class, and href*, with 
+other attributes stored as "OtherA" types.
+
+* Yes, only a's should have 'href'.
+
+To test, load ghci in the same directory as Blanket.hs
+
+$ ghci
+Prelude> :l Blanket
+[1 of 3] Compiling Parse.Data       ( Parse/Data.hs, interpreted )
+[2 of 3] Compiling Parse.Util       ( Parse/Util.hs, interpreted )
+[3 of 3] Compiling Blanket          ( Blanket.hs, interpreted )
+Ok, modules loaded: Blanket, Parse.Util, Parse.Data.
+*Blanket> let tags = parseTags "<html><head><title>Here's the Title</title></head><body>And the <a href='blah'>body</a></body></html>"
+
+*Blanket> putStr $ prettyPrint tags
+<html>
+  <head>
+    <title>
+      Here's the Title
+    </title>
+  </head>
+  <body>
+    And the 
+    <a href='blah'>
+      body
+    </a>
+  </body>
+</html>
